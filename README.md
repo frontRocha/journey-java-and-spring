@@ -6,8 +6,8 @@
 
 ## Tecnologias
 
-- Java 8
-- Spring Framework 5.3.9
+- Java
+- Spring Framework
 
 ## Como usar
 
