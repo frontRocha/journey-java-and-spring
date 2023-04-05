@@ -3,7 +3,7 @@ package br.com.book.controllers;
 import br.com.book.dtos.BookDto;
 import br.com.book.models.BookModel;
 import br.com.book.services.BookService;
-import businessException.BusinessException;
+import br.com.book.businessException.BusinessException;
 import jakarta.validation.Valid;
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;

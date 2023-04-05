@@ -2,7 +2,7 @@ package br.com.book.services;
 
 import br.com.book.models.BookModel;
 import br.com.book.repositories.BookRepository;
-import businessException.BusinessException;
+import br.com.book.businessException.BusinessException;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
@@ -39,7 +39,7 @@ public class BookService {
 
     public void validationBookName(String bookName) throws BusinessException {
         if(bookRepository.existsByBookName(bookName)) {
-            throw new BusinessException("The book: " + bookName + " is already in use:");
+            throw new BusinessException("The book: " + bookName + " is already in use");
         }
     }
 
