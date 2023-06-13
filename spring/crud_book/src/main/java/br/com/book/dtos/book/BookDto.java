@@ -1,4 +1,4 @@
-package br.com.book.dtos;
+package br.com.book.dtos.book;
 
 import jakarta.validation.constraints.NotBlank;
 
@@ -23,4 +23,5 @@ public class BookDto {
     public void setPrice(String price) {
         this.price = price;
     }
+
 }
