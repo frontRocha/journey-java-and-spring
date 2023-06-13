@@ -37,7 +37,7 @@ public class BookService {
         validationBookName(bookName, userId);
     }
 
-    public void validationBookName(String bookName, Integer userId) throws BusinessException {
+    private void validationBookName(String bookName, Integer userId) throws BusinessException {
         int count = bookRepository.countByBookNameAndUserId(bookName, userId);
 
         if (count > 0) {
