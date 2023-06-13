@@ -10,9 +10,7 @@ import java.util.UUID;
 
 @Repository
 public interface BookRepository extends JpaRepository<Book, UUID> {
-    @Query(value = "SELECT COUNT(*) FROM tb_book WHERE book_name = :bookName AND user_id = :userId LIMIT 1", nativeQuery = true)
     int countByBookNameAndUserId(String bookName, Integer userId);
 
-    @Query(value = "SELECT * FROM tb_book WHERE user_id = :user_id", nativeQuery = true)
-    List<Book> findAll(Integer user_id);
+    List<Book> findAllByUserId(Integer userId);
 }
