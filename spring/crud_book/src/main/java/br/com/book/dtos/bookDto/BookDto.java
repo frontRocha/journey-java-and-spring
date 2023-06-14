@@ -1,4 +1,4 @@
-package br.com.book.dtos.book;
+package br.com.book.dtos.bookDto;
 
 import jakarta.validation.constraints.NotBlank;
 

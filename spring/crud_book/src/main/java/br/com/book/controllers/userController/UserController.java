@@ -1,11 +1,11 @@
-package br.com.book.controllers;
+package br.com.book.controllers.userController;
 
 import br.com.book.businessException.BusinessException;
-import br.com.book.dtos.errorResponse.ErrorResponseDto;
+import br.com.book.dtos.errorResponseDto.ErrorResponseDto;
 import br.com.book.models.user.User;
 import br.com.book.repository.user.UserRepository;
 import br.com.book.security.filter.JWTAuthenticate;
-import br.com.book.dtos.authenticationResponse.AuthenticationResponseDto;
+import br.com.book.dtos.authenticationResponseDto.AuthenticationResponseDto;
 import br.com.book.services.userDetailServiceImpl.UserDetailServiceImpl;
 import br.com.book.utils.tokenGenerator.TokenGenerator;
 import br.com.book.utils.tokenGenerator.TokenGenerate;
@@ -82,8 +82,8 @@ public class UserController implements TokenGenerator {
         return JWT.create()
                 .withSubject(login)
                 .withClaim("id", id)
-                .withExpiresAt(new Date(System.currentTimeMillis() + JWTAuthenticate.TOKEN_EXPIRACAO))
-                .sign(Algorithm.HMAC512(JWTAuthenticate.TOKEN_SENHA));
+                .withExpiresAt(new Date(System.currentTimeMillis() + JWTAuthenticate.TOKEN_EXPIRATION))
+                .sign(Algorithm.HMAC512(JWTAuthenticate.TOKEN_PASSWORD));
     }
 
     private void existsByLoginUser(User user) throws BusinessException {

@@ -1,7 +1,7 @@
-package br.com.book.controllers;
+package br.com.book.controllers.bookController;
 
-import br.com.book.dtos.book.BookDto;
-import br.com.book.dtos.errorResponse.ErrorResponseDto;
+import br.com.book.dtos.bookDto.BookDto;
+import br.com.book.dtos.errorResponseDto.ErrorResponseDto;
 import br.com.book.models.book.Book;
 import br.com.book.models.user.User;
 import br.com.book.repository.user.UserRepository;
@@ -163,4 +163,3 @@ public class BookController {
         book.setId(bookModelOptional.get().getId());
     }
 }
-

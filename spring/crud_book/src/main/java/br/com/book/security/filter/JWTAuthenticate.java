@@ -2,7 +2,7 @@ package br.com.book.security.filter;
 
 import br.com.book.data.UserDetail;
 import br.com.book.models.user.User;
-import br.com.book.dtos.authenticationResponse.AuthenticationResponseDto;
+import br.com.book.dtos.authenticationResponseDto.AuthenticationResponseDto;
 import br.com.book.utils.tokenGenerator.TokenGenerate;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.FilterChain;
@@ -22,14 +22,13 @@ import java.util.Map;
 
 public class JWTAuthenticate extends UsernamePasswordAuthenticationFilter {
 
-
     private final TokenGenerate tokenGenerate;
     private final AuthenticationResponseDto authenticationResponseDto;
     private final AuthenticationManager authenticationManager;
 
     private static Map<String, Object> userData = new HashMap<>();
-    public static final int TOKEN_EXPIRACAO = 600_000;
-    public static final String TOKEN_SENHA = "463408a1-54c9-4307-bb1c-6cced559f5a7";
+    public static final int TOKEN_EXPIRATION = 600_000;
+    public static final String TOKEN_PASSWORD = "463408a1-54c9-4307-bb1c-6cced559f5a7";
 
     public JWTAuthenticate(TokenGenerate tokenGenerate, AuthenticationManager authenticationManager, AuthenticationResponseDto authenticationResponseDto) {
         this.tokenGenerate = tokenGenerate;

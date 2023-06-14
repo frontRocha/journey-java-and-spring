@@ -1,4 +1,4 @@
-package br.com.book.dtos.errorResponse;
+package br.com.book.dtos.errorResponseDto;
 
 import org.springframework.stereotype.Component;
 

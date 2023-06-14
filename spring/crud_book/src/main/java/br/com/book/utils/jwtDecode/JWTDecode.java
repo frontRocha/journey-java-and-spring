@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 public class JWTDecode {
 
     public static Integer extractUserIdFromToken(String token) {
-        DecodedJWT decodedJWT = JWT.require(Algorithm.HMAC512(JWTAuthenticate.TOKEN_SENHA))
+        DecodedJWT decodedJWT = JWT.require(Algorithm.HMAC512(JWTAuthenticate.TOKEN_PASSWORD))
                 .build()
                 .verify(token);
 

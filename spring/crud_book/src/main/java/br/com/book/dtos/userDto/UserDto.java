@@ -1,4 +1,4 @@
-package br.com.book.dtos.user;
+package br.com.book.dtos.userDto;
 
 import jakarta.validation.constraints.NotBlank;
 

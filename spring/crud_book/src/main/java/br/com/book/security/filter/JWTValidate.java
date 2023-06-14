@@ -1,7 +1,7 @@
 package br.com.book.security.filter;
 
 import br.com.book.businessException.BusinessException;
-import br.com.book.dtos.errorResponse.ErrorResponseDto;
+import br.com.book.dtos.errorResponseDto.ErrorResponseDto;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import jakarta.servlet.FilterChain;
@@ -19,8 +19,8 @@ import java.util.Date;
 
 public class JWTValidate extends OncePerRequestFilter {
 
-    public static final String HEADER_ATRIBUTO = "Authorization";
-    public static final String ATRIBUTO_PREFIXO = "Bearer ";
+    public static final String HEADER_ATTRIBUTE = "Authorization";
+    public static final String ATTRIBUTE_PREFIX = "Bearer ";
 
     private final ErrorResponseDto errorResponseDto;
 
@@ -32,12 +32,16 @@ public class JWTValidate extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
 
         try {
-            processRequest(request, response, chain);
+            String attribute = request.getHeader(HEADER_ATTRIBUTE);
 
-            String atributo = request.getHeader(HEADER_ATRIBUTO);
-            validateHeaders(atributo);
+            if (attribute == null || !attribute.startsWith(ATTRIBUTE_PREFIX)) {
+                chain.doFilter(request, response);
+                return;
+            }
 
-            String token = atributo.replace(ATRIBUTO_PREFIXO, "");
+            validateHeaders(attribute);
+
+            String token = attribute.replace(ATTRIBUTE_PREFIX, "");
             UsernamePasswordAuthenticationToken authenticationToken = getAuthenticationToken(token);
 
             SecurityContextHolder.getContext().setAuthentication(authenticationToken);
@@ -51,11 +55,24 @@ public class JWTValidate extends OncePerRequestFilter {
         chain.doFilter(request, response);
     }
 
-    private void processRequest(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
-        if ("/signup".equals(request.getRequestURI()) || "/login".equals(request.getRequestURI())) {
-            chain.doFilter(request, response);
-            return;
+    private UsernamePasswordAuthenticationToken getAuthenticationToken(String token) throws BusinessException {
+        DecodedJWT decodedJWT = JWT.decode(token);
+        Date expirationDate = decodedJWT.getExpiresAt();
+        validateExpirationToken(expirationDate);
+
+        String user = decodedJWT.getSubject();
+
+        verifyUser(user);
+
+        return new UsernamePasswordAuthenticationToken(user, null, new ArrayList<>());
+    }
+
+    private String verifyUser(String user) {
+        if (user == null) {
+            return null;
         }
+
+        return user;
     }
 
     private void writerResponseError(HttpServletResponse response) throws IOException {
@@ -65,30 +82,10 @@ public class JWTValidate extends OncePerRequestFilter {
         response.getWriter().flush();
     }
 
-    private UsernamePasswordAuthenticationToken getAuthenticationToken(String token) throws BusinessException {
-        DecodedJWT decodedJWT = JWT.decode(token);
-        Date expirationDate = decodedJWT.getExpiresAt();
-        validateExpirationToken(expirationDate);
-        
-        String user = decodedJWT.getSubject();
-
-        verifyUser(user);
-        
-        return new UsernamePasswordAuthenticationToken(user, null, new ArrayList<>());
-    }
-
     private void validateExpirationToken(Date expirationDate) throws BusinessException {
         if (expirationDate != null && expirationDate.before(new Date())) {
             throw new BusinessException("Token expired");
         }
-    }
-
-    private String verifyUser(String user) {
-        if (user == null) {
-            return null;
-        }
-        
-        return user;
     }
 
     private void setMessageError(String message) {
@@ -100,7 +97,7 @@ public class JWTValidate extends OncePerRequestFilter {
     }
 
     private void validateHeaders(String atributo) throws BusinessException {
-        if (atributo == null || !atributo.startsWith(ATRIBUTO_PREFIXO)) {
+        if (atributo == null || !atributo.startsWith(ATTRIBUTE_PREFIX)) {
             throw new BusinessException("Token not found");
         }
     }

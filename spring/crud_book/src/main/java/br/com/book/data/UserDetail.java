@@ -31,6 +31,10 @@ public class UserDetail implements UserDetails {
         return user.orElse(new User()).getLogin();
     }
 
+    public Integer getId() {
+        return user.orElse(new User()).getId();
+    }
+
     @Override
     public boolean isAccountNonExpired() {
         return true;
@@ -49,9 +53,5 @@ public class UserDetail implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
-    }
-
-    public Integer getId() {
-        return user.orElse(new User()).getId();
     }
 }

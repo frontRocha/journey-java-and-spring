@@ -1,4 +1,4 @@
-package br.com.book.dtos.authenticationResponse;
+package br.com.book.dtos.authenticationResponseDto;
 
 import org.springframework.stereotype.Component;
 

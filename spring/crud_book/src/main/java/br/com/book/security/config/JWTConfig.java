@@ -1,7 +1,7 @@
 package br.com.book.security.config;
 
-import br.com.book.dtos.authenticationResponse.AuthenticationResponseDto;
-import br.com.book.dtos.errorResponse.ErrorResponseDto;
+import br.com.book.dtos.authenticationResponseDto.AuthenticationResponseDto;
+import br.com.book.dtos.errorResponseDto.ErrorResponseDto;
 import br.com.book.security.filter.JWTValidate;
 import br.com.book.security.filter.JWTAuthenticate;
 import br.com.book.services.userDetailServiceImpl.UserDetailServiceImpl;

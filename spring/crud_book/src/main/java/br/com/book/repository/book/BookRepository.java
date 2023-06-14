@@ -2,7 +2,6 @@ package br.com.book.repository.book;
 
 import br.com.book.models.book.Book;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

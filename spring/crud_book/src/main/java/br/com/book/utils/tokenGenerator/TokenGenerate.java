@@ -17,7 +17,7 @@ public class TokenGenerate implements TokenGenerator {
         return JWT.create()
                 .withSubject(login)
                 .withClaim("id", id)
-                .withExpiresAt(new Date(System.currentTimeMillis() + JWTAuthenticate.TOKEN_EXPIRACAO))
-                .sign(Algorithm.HMAC512(JWTAuthenticate.TOKEN_SENHA));
+                .withExpiresAt(new Date(System.currentTimeMillis() + JWTAuthenticate.TOKEN_EXPIRATION))
+                .sign(Algorithm.HMAC512(JWTAuthenticate.TOKEN_PASSWORD));
     }
 }
